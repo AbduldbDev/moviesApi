@@ -15,7 +15,7 @@ db.on("error", console.error.bind(console, "Connection error"));
 db.once("open", () => console.log("We're connected to the cloud database"));
 
 const corsOptions = {
-  origin: ["http://localhiost:800"],
+  origin: ["http://localhost:5173"],
   credentials: true,
   optionSuccessStatus: 200,
 };
