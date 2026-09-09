@@ -16,17 +16,27 @@ module.exports.registerUser = (req, res) => {
     });
   }
 
-  let newUser = new User({
-    email: req.body.email,
-    password: bcrypt.hashSync(req.body.password, 10),
-  });
+  return User.findOne({ email: req.body.email })
+    .then((existingUser) => {
+      if (existingUser) {
+        return res.status(409).send({
+          message: "Email already registered",
+        });
+      }
 
-  return newUser
-    .save()
-    .then((user) => {
-      return res.status(201).send({
-        message: "Registered successfully",
+      let newUser = new User({
+        email: req.body.email,
+        password: bcrypt.hashSync(req.body.password, 10),
       });
+
+      return newUser
+        .save()
+        .then((user) => {
+          return res.status(201).send({
+            message: "Registered successfully",
+          });
+        })
+        .catch((err) => errorHandler(err, req, res));
     })
     .catch((err) => errorHandler(err, req, res));
 };
