@@ -65,6 +65,7 @@ module.exports.loginUser = (req, res) => {
 
       return res.status(200).send({
         userId: result._id,
+        isAdmin: result.isAdmin,
         access: auth.createAccessToken(result),
       });
     })
