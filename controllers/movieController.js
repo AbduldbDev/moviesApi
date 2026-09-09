@@ -42,6 +42,7 @@ module.exports.addMovie = (req, res) => {
     year: req.body.year,
     description: req.body.description,
     genre: req.body.genre,
+    image: req.body.image,
   });
 
   return newMovie
@@ -71,6 +72,22 @@ module.exports.getMovie = (req, res) => {
         });
       }
       return res.status(200).send(movie);
+    })
+    .catch((err) => errorHandler(err, req, res));
+};
+
+module.exports.deleteMovie = (req, res) => {
+  return Movie.findByIdAndDelete(req.params.movieId)
+    .then((movie) => {
+      if (!movie) {
+        return res.status(404).send({
+          message: "Movie not found",
+        });
+      }
+
+      return res.status(200).send({
+        message: "Movie deleted successfully",
+      });
     })
     .catch((err) => errorHandler(err, req, res));
 };

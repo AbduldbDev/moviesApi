@@ -7,5 +7,6 @@ const { verify, verifyAdmin } = require("../auth");
 router.post("/addMovie", verify, verifyAdmin, movieController.addMovie);
 router.get("/getMovies", movieController.getMovies);
 router.get("/getMovie/:movieId", movieController.getMovie);
+router.delete("/:movieId", movieController.deleteMovie);
 
 module.exports = router;
