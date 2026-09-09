@@ -15,7 +15,7 @@ db.on("error", console.error.bind(console, "Connection error"));
 db.once("open", () => console.log("We're connected to the cloud database"));
 
 const corsOptions = {
-  origin: ["http://localhost:5173"],
+  origin: ["http://localhost:5173", "https://deborja-movies.vercel.app"],
   credentials: true,
   optionSuccessStatus: 200,
 };
